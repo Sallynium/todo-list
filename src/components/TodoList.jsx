@@ -20,8 +20,8 @@ export default function TodoList({ todos, filter, onToggle, onEdit, onDelete, on
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
       <Droppable droppableId="todo-list">
-        {provided => (
-          <div ref={provided.innerRef} {...provided.droppableProps}>
+        {droppableProvided => (
+          <div ref={droppableProvided.innerRef} {...droppableProvided.droppableProps}>
             {todos.map((todo, index) => (
               <Draggable
                 key={todo.id}
@@ -29,20 +29,20 @@ export default function TodoList({ todos, filter, onToggle, onEdit, onDelete, on
                 index={index}
                 isDragDisabled={isDragDisabled}
               >
-                {provided => (
-                  <div ref={provided.innerRef} {...provided.draggableProps}>
+                {draggableProvided => (
+                  <div ref={draggableProvided.innerRef} {...draggableProvided.draggableProps}>
                     <TodoItem
                       todo={todo}
                       onToggle={onToggle}
                       onEdit={onEdit}
                       onDelete={onDelete}
-                      dragHandleProps={isDragDisabled ? {} : provided.dragHandleProps}
+                      dragHandleProps={isDragDisabled ? {} : draggableProvided.dragHandleProps}
                     />
                   </div>
                 )}
               </Draggable>
             ))}
-            {provided.placeholder}
+            {droppableProvided.placeholder}
           </div>
         )}
       </Droppable>
