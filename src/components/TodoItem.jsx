@@ -4,6 +4,7 @@ export default function TodoItem({ todo, onToggle, onEdit, onDelete, dragHandleP
   const [isEditing, setIsEditing] = useState(false)
   const [editValue, setEditValue] = useState(todo.text)
   const inputRef = useRef(null)
+  const savingRef = useRef(false)
 
   useEffect(() => {
     if (isEditing && inputRef.current) {
@@ -18,8 +19,11 @@ export default function TodoItem({ todo, onToggle, onEdit, onDelete, dragHandleP
   }
 
   function saveEdit() {
+    if (savingRef.current) return
+    savingRef.current = true
     onEdit(todo.id, editValue)
     setIsEditing(false)
+    setTimeout(() => { savingRef.current = false }, 0)
   }
 
   function cancelEdit() {

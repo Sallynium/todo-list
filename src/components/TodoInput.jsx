@@ -5,6 +5,7 @@ export default function TodoInput({ onAdd }) {
 
   function handleSubmit(e) {
     e.preventDefault()
+    if (!value.trim()) return
     onAdd(value)
     setValue('')
   }
